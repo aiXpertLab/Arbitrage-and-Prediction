@@ -1,0 +1,7 @@
+openai
+Requests
+streamlit
+tenacity
+tensorflow 
+numpy 
+pandas

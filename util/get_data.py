@@ -1,14 +1,11 @@
-import pandas as pd
-import requests
+import requests, pandas as pd
 from datetime import datetime, timedelta
 
-def fetch_stock_data(symbol, start_date, end_date, api_key):
+def get_price(symbol, start_date, end_date, api_key):
     url = f"https://eodhistoricaldata.com/api/eod/{symbol}"
     params = {
-        "from": start_date,
-        "to": end_date,
-        "fmt": "json",
-        "api_token": api_key
+        "from": start_date,        "to": end_date,
+        "fmt": "json",        "api_token": api_key,
     }
     response = requests.get(url, params=params)
     if response.status_code == 200:
@@ -21,8 +18,7 @@ def fetch_stock_data(symbol, start_date, end_date, api_key):
         return pd.DataFrame()  # Return an empty DataFrame in case of failure
 
 
-
-def fetch_news_data(symbol, start_date, end_date, api_key):
+def get_news(symbol, start_date, end_date, api_key):
     all_news = []
     current_end_date = end_date
 
@@ -57,26 +53,3 @@ def fetch_news_data(symbol, start_date, end_date, api_key):
     df = pd.DataFrame(all_news)
     df['date'] = pd.to_datetime(df['date']).dt.date  # Convert to date to match stock data
     return df
-
-
-api_key = 'your_api_key_here'  # Replace with your actual API key
-symbol = "AAPL.US"  # Example symbol
-start_date = "2019-01-01"
-end_date = "2024-04-08"
-
-# Fetch stock data
-stock_df = fetch_stock_data(symbol, start_date, end_date, api_key)
-stock_df['date'] = pd.to_datetime(stock_df['date'])
-
-# Fetch news data
-news_df = fetch_news_data(symbol, start_date, end_date, api_key)
-news_df["date"] = pd.to_datetime(news_df["date"])
-news_df = news_df.sort_values(by="date")
-
-news_df['polarity'] = news_df['sentiment'].apply(lambda x: x['polarity'] if x is not None else 0)
-
-# Group by date and calculate average polarity
-avg_polarity_df = news_df.groupby('date')['polarity'].mean().reset_index()
-
-# Ensure the 'date' column in both DataFrames is of the same type
-avg_polarity_df['date'] = pd.to_datetime(avg_polarity_df['date'])
