@@ -2,11 +2,14 @@ import streamlit as st
 
 from utils import st_def, tab_arbi
 st_def.st_logo(title='👋Arbitrage🎖️and🏅Prediction🥇', page_title="🏆Win🌟")
-
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8 = st.tabs(
-    ["🔰General", "🚦Buy Sell Signal🚥", "🍨Chunking➡️", "Embedding➡️", "Vector➡️", "Retrieval➡️", "Q&A➡️", "Evaluation🏅"])
-
-with tab1:  tab_arbi.arbi_general()
-with tab8:  tab_arbi.arbi_evaluation()
-
-
+st.warning('''
+           # Disclaimer:
+           
+           This is not financial advice! Use forecast data to inform your own investment research. No guarantee of trading performance.
+           
+           Before delving into the details, it’s important to emphasize that the information provided by this app is for educational and demonstration purposes only. It should not be considered as financial advice. Always consult with a qualified financial advisor before making investment decisions as past performance is not indicative of future results.
+           
+           This dashboard is not personal advice. It does not constitute a personal recommendation to buy, sell, or otherwise trade all or any of the investments which may be referred to. Data represented on charts is purely an illustration of dashboarding capabilities.
+           
+           ''')
+st.image('./images/zhang.gif', use_column_width=True)
