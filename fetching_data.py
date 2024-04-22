@@ -1,5 +1,5 @@
 import pandas as pd, requests, os, sys
-import util.get_data as gd
+import utils.get_data as gd
 
 api_key =  os.environ.get('EODHD_API_KEY')
 symbol = "IBM.US"  # Example symbol
